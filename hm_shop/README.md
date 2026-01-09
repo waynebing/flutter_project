@@ -1,5 +1,7 @@
 # hm_shop
 
+一个模拟flutter的项目
+
 A new Flutter project.
 
 ## Getting Started
