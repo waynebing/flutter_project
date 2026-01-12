@@ -10,3 +10,18 @@ Future<List<BannerItem>> getBannerListAPI() async {
     return BannerItem.formJSON(item as Map<String, dynamic>);
   }).toList();
 }
+
+Future<List<CategoryItem>> getCategoryListAPI() async {
+  return ((await dioRequest.get(HttpConstants.CATEGORY_LIST)) as List).map((
+    item,
+  ) {
+    return CategoryItem.formJSON(item as Map<String, dynamic>);
+  }).toList();
+}
+
+//特惠推荐
+Future<SpecialRecommendResult> getSpecialRecommendAPI() async {
+  return SpecialRecommendResult.formJSON(
+    await dioRequest.get(HttpConstants.PRODUCT_LIST),
+  );
+}
