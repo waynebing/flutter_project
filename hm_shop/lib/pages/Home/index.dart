@@ -56,17 +56,22 @@ class _HomeViewState extends State<HomeView> {
         height: 10,
       )),
       SliverToBoxAdapter(
-          child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 10),
-        child: Flex(
-          direction: Axis.horizontal,
-          children: [
-            Expanded(child: HmHot()),
-            SizedBox(width: 10),
-            Expanded(child: HmHot()),
-          ],
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10),
+          child: Flex(
+            direction: Axis.horizontal,
+            children: [
+              Expanded(
+                child: HmHot(result: _inVogueResult, type: "hot"),
+              ),
+              SizedBox(width: 10),
+              Expanded(
+                child: HmHot(result: _oneStopResult, type: "step"),
+              ),
+            ],
+          ),
         ),
-      )),
+      ),
       SliverToBoxAdapter(
           child: SizedBox(
         height: 10,
@@ -86,12 +91,27 @@ class _HomeViewState extends State<HomeView> {
     subTypes: [],
   );
 
+  // 热榜推荐
+  SpecialRecommendResult _inVogueResult = SpecialRecommendResult(
+    id: "",
+    title: "",
+    subTypes: [],
+  );
+  // 一站式推荐
+  SpecialRecommendResult _oneStopResult = SpecialRecommendResult(
+    id: "",
+    title: "",
+    subTypes: [],
+  );
+
   @override
   void initState() {
     super.initState();
     _getBannerList();
     _getCategoryList();
     _getProductList();
+    _getInVogueList();
+    _getOneStopList();
   }
 
   void _getBannerList() async {
@@ -107,6 +127,16 @@ class _HomeViewState extends State<HomeView> {
   //获取特惠推荐列表
   void _getProductList() async {
     _specialRecommendResult = await getSpecialRecommendAPI();
+  }
+
+  // 获取热榜推荐列表
+  void _getInVogueList() async {
+    _inVogueResult = await getInVogueListAPI();
+  }
+
+  // 获取一站式推荐列表
+  void _getOneStopList() async {
+    _oneStopResult = await getOneStopListAPI();
   }
 
   @override
