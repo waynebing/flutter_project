@@ -77,10 +77,6 @@ class _HomeViewState extends State<HomeView> {
         height: 10,
       )),
       HmMoreList(recommendList: _recommendList),
-      SliverToBoxAdapter(
-          child: SizedBox(
-        height: 10,
-      )),
     ];
   }
 
@@ -116,6 +112,17 @@ class _HomeViewState extends State<HomeView> {
     _getInVogueList();
     _getOneStopList();
     _getRecommendList();
+    _registerEvent();
+  }
+
+  //监听滚动到底部的事件
+  void _registerEvent() {
+    _controller.addListener(() {
+      if (_controller.position.pixels >=
+          (_controller.position.maxScrollExtent - 50)) {
+        _getRecommendList();
+      }
+    });
   }
 
   void _getBannerList() async {
@@ -143,15 +150,31 @@ class _HomeViewState extends State<HomeView> {
     _oneStopResult = await getOneStopListAPI();
   }
 
+  int _page = 1;
+  bool _isLoading = false; //当前是否正在加载
+  bool _hasMore = true; //是否还有下一页
 //获取推荐列表
   void _getRecommendList() async {
-    _recommendList = await getRecommendListAPI({"limit": 10});
+    if (!_isLoading || !_hasMore) {
+      return;
+    }
+    _isLoading = true;
+    int requestLimit = _page * 8;
+    _recommendList = await getRecommendListAPI({"limit": requestLimit});
+    _isLoading = false;
     setState(() {});
+    if (_recommendList.length < requestLimit) {
+      _hasMore = false;
+      return;
+    }
+    _page++;
   }
 
+  final ScrollController _controller = ScrollController();
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
+      controller: _controller, //绑定控制器
       slivers: _getScrollChildern(),
     );
   }
