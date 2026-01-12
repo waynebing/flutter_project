@@ -76,7 +76,7 @@ class _HomeViewState extends State<HomeView> {
           child: SizedBox(
         height: 10,
       )),
-      HmMoreList(),
+      HmMoreList(recommendList: _recommendList),
       SliverToBoxAdapter(
           child: SizedBox(
         height: 10,
@@ -104,6 +104,9 @@ class _HomeViewState extends State<HomeView> {
     subTypes: [],
   );
 
+  // 推荐列表
+  List<GoodDetailItem> _recommendList = [];
+
   @override
   void initState() {
     super.initState();
@@ -112,6 +115,7 @@ class _HomeViewState extends State<HomeView> {
     _getProductList();
     _getInVogueList();
     _getOneStopList();
+    _getRecommendList();
   }
 
   void _getBannerList() async {
@@ -137,6 +141,12 @@ class _HomeViewState extends State<HomeView> {
   // 获取一站式推荐列表
   void _getOneStopList() async {
     _oneStopResult = await getOneStopListAPI();
+  }
+
+//获取推荐列表
+  void _getRecommendList() async {
+    _recommendList = await getRecommendListAPI({"limit": 10});
+    setState(() {});
   }
 
   @override
