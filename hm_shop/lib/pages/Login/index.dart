@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-// import 'package:get/get.dart';
+import 'package:get/get.dart';
 import 'package:hm_shop/api/user.dart';
 // import 'package:hm_shop/stores/TokenManager.dart';
-// import 'package:hm_shop/stores/UserController.dart';
+import 'package:hm_shop/stores/UserController.dart';
 // import 'package:hm_shop/utils/LoadingDialog.dart';
 import 'package:hm_shop/utils/ToastUtils.dart';
 
@@ -17,7 +17,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   TextEditingController _phoneController = TextEditingController(); // 账号控制器
   TextEditingController _codeController = TextEditingController(); // 密码控制器
-  // final UserController _userController = Get.find(); // 寻找对象
+  final UserController _userController = Get.find(); // 寻找对象
   // 用户账号Widget
   Widget _buildPhoneTextField() {
     return TextFormField(
@@ -82,7 +82,7 @@ class _LoginPageState extends State<LoginPage> {
         "password": _codeController.text,
       });
       // print(res); // 用户信息
-      // _userController.updateUserInfo(res);
+      _userController.updateUserInfo(res);
       //tokenManager.setToken(res.token); // 写入持久化数据
       //LoadingDialog.hide(context);
       ToastUtils.showToast(context, "登录成功");
