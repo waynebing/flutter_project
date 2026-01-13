@@ -55,6 +55,10 @@ class DioRequest {
     return _handleResponse(_dio.get(url, queryParameters: params));
   }
 
+  Future<dynamic> post(String url, {Map<String, dynamic>? data}) {
+    return _handleResponse(_dio.post(url, data: data));
+  }
+
   Future<dynamic> _handleResponse(Future<Response<dynamic>> task) async {
     try {
       Response<dynamic> res = await task;
@@ -69,7 +73,8 @@ class DioRequest {
         message: data["msg"] ?? "加载数据失败",
       );
     } catch (e) {
-      throw Exception(e);
+      // throw Exception(e);
+      rethrow; // 不改变原来抛出的异常类型
     }
   }
 }
