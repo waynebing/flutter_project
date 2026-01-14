@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:hm_shop/api/mine.dart';
 import 'package:hm_shop/components/Home/HmMoreList.dart';
 import 'package:hm_shop/components/Mine/HmGuess.dart';
-// import 'package:hm_shop/stores/TokenManager.dart';
+import 'package:hm_shop/stores/TokenManager.dart';
 import 'package:hm_shop/stores/UserController.dart';
 import 'package:hm_shop/viewmodels/home.dart';
 import 'package:hm_shop/viewmodels/user.dart';
@@ -19,7 +19,7 @@ class _MineViewState extends State<MineView> {
   // final UserController _userController = Get.find();
   final UserController _userController = Get.find();
   // 返回退出登录的元素
-  /* Widget _getLogout() {
+  Widget _getLogout() {
     return _userController.user.value.id.isNotEmpty
         ? Expanded(
             child: GestureDetector(
@@ -59,7 +59,7 @@ class _MineViewState extends State<MineView> {
             ),
           )
         : Text("");
-  } */
+  }
 
   Widget _buildHeader() {
     return Container(
@@ -110,7 +110,7 @@ class _MineViewState extends State<MineView> {
               ],
             ),
           ),
-          //Obx(() => _getLogout()),
+          Obx(() => _getLogout()),
         ],
       ),
     );
