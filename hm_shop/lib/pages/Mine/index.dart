@@ -17,7 +17,7 @@ class MineView extends StatefulWidget {
 
 class _MineViewState extends State<MineView> {
   // final UserController _userController = Get.find();
-  final UserController _userController = Get.put(UserController());
+  final UserController _userController = Get.find();
   // 返回退出登录的元素
   /* Widget _getLogout() {
     return _userController.user.value.id.isNotEmpty
